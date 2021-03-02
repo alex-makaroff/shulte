@@ -42,4 +42,28 @@ body {
     justify-content: space-between;
 }
 
+#name {
+    width: 200px;
+    font-size: 20px;
+    padding: 7px 10px;
+    border: 1px solid #c5c5c5;
+    background: transparent;
+    outline: none;
+    box-sizing: border-box;
+}
+
+::placeholder {
+    color: #bebebe;
+    opacity: 1;
+}
+
+#timer {
+    font-size: 25px;
+    color: #808080;
+}
+
+#startStopBtn {
+    width: 40px;
+}
+
 
