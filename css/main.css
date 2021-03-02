@@ -20,7 +20,17 @@ body {
 }
 
 #footer {
+    position: fixed;
+    bottom: 5px;
+    color: #c5c5c5;
+}
 
+#telegram {
+    width: 16px;
+}
+
+#am {
+    padding-right: 20px;
 }
 
 #left {
