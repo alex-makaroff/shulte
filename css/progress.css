@@ -4,6 +4,7 @@
     width: 500px;
     margin: 20px 0;
     border: 1px solid #efefef;
+    visibility: hidden;
 }
 
 #progressBar {
