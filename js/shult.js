@@ -84,6 +84,22 @@ function drawRating () {
     getEl('rating').innerHTML = html;
 }
 
+function start () {
+    isStarted = true;
+}
+
+function stop () {
+    isStarted = false;
+}
+
+function startStop () {
+    if (isStarted) {
+        stop()
+    } else {
+        start()
+    }
+}
+
 /**
  * Отрисовка таблицы Шульта
  */
