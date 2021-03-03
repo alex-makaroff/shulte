@@ -59,6 +59,13 @@ function sortRating () {
 }
 
 /**
+ * добовляем нового или обновляем старого игрока в рейтинг и сохроняем его в браузере
+ */
+function saveRating () {
+
+}
+
+/**
  * Отрисовка таблицы рейтинга
  */
 function drawRating () {
@@ -102,20 +109,47 @@ function start () {
 
     getEl('startStopBtn').src = 'img/stop.svg';
     nameEl.disabled = true;
+    drawShult();
+    drawProgress();
 }
 
 function stop () {
     isStarted = false;
     nameEl.disabled = false;
-
+    getEl('startStopBtn').src = 'img/play.svg';
+    saveRating();
+    drawRating();
 }
 
 function startStop () {
     if (isStarted) {
-        stop()
+        stop();
     } else {
-        start()
+        start();
     }
+}
+
+function drawProgress () {
+    //если не isStarted, то скрываем
+    const plStyle = getStyle('progressLine')
+    if (!isStarted) {
+         plStyle.visibility = 'hidden';
+        return;
+    }
+    plStyle.visibility = 'visible';
+    //если isStarded, то отрисовываем и устанавлеваем процент
+    const pbStyle =  getStyle('progressBar');
+    if (!nextIndex || !sortedArr.length) {
+        pbStyle.width = '0';
+        return;
+    }
+
+    if (nextIndex >= sortedArr.length) {
+        pbStyle.width = '100%';
+        return;
+    }
+    pbStyle.width = `${((nextIndex / sortedArr.length) * 100).toFixed(2)}%`
+
 }
 
 /**
