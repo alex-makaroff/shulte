@@ -1,5 +1,5 @@
 let MIN_NUM = 1;
-let ADGE_LEN = 2; // Длина стороны квадрата
+let ADGE_LEN = 5; // Длина стороны квадрата
 let MAX_NUM = (ADGE_LEN ** 2) + MIN_NUM - 1; //  5 ** 2 = 25; 25 - 1 + 1 == 25
 let nextIndex = 0;
 let sortedArr = [];
