@@ -1,5 +1,5 @@
 let MIN_NUM = 1;
-let ADGE_LEN = 5; // Длина стороны квадрата
+let ADGE_LEN = 2; // Длина стороны квадрата
 let MAX_NUM = (ADGE_LEN ** 2) + MIN_NUM - 1; //  5 ** 2 = 25; 25 - 1 + 1 == 25
 let nextIndex = 0;
 let sortedArr = [];
@@ -106,7 +106,7 @@ function start () {
         return blinkName();
     }
     isStarted = true;
-
+    startTS = +(new Date());
     getEl('startStopBtn').src = 'img/stop.svg';
     nameEl.disabled = true;
     drawShult();
@@ -114,8 +114,11 @@ function start () {
 }
 
 function stop () {
+    drawProgress()
     isStarted = false;
     nameEl.disabled = false;
+    drawTime();
+    startTS = 0;
     getEl('startStopBtn').src = 'img/play.svg';
     saveRating();
     drawRating();
@@ -224,3 +227,19 @@ function onLoad () {
     drawRating();
     drawShult();
 }
+
+function getTime () {
+    const now = +(new Date());
+    timer = now - startTS;
+    return Math.round(timer / 100) / 10;
+}
+
+function drawTime () {
+    getEl('timer').innerText = `${getTime().toFixed(1)} с`;
+}
+
+setInterval(() => {
+    if (isStarted) {
+        drawTime();
+    }
+}, 50)
