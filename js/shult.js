@@ -7,7 +7,14 @@ let shultArr = [];
 let timer = 0;
 let startTS = 0;
 let isStarted = false;
-let rating = []
+let rating = [
+    ["Саша", 6.0],
+    ["Вениамин", 10.0],
+    ["Света", 85.5],
+    ["Юра", 45.5],
+    ["Екатерина", 31.5],
+    ["Петр", 36.5],
+];
 
 
 function getEl (id) {
@@ -19,6 +26,13 @@ function getStyle (id) {
     return el && el.style;
 }
 
+
+/**
+ * возвращает массив последовательных целых чисел от min до max
+ * @param {Number} min
+ * @param {Number} max
+ * @return {Number[]}
+ */
 function getSequenceArray (min, max) {
     return [...Array(max - min + 1).keys()].map((i) => i + min);
 }
@@ -35,8 +49,39 @@ function shuffleArray (array) {
 }
 
 
-function drawRating () {
+/**
+ * Сортирует глобально объявленный массив rating по возрастанию времени
+ */
+function sortRating () {
+    rating.sort((a, b) => {
+        return a[1] - b[1];
+    });
+}
 
+/**
+ * Отрисовка таблицы рейтинга
+ */
+function drawRating () {
+    sortRating();
+
+    let html = `<div>Рейтинг</div>
+    <table>
+        <tr>
+            <th class="rate">#</th>
+            <th class="name">имя</th>
+            <th class="time">время, с</th>
+        </tr>`;
+
+    for (let i = 0; i < rating.length; i++) {
+        const [name, time] = rating[i];
+        html += `<tr>
+        <td class="rate">${i + 1}</td>
+        <td class="name">${name}</td>
+        <td class="time">${time.toFixed(1)}</td>
+    </tr>`
+    }
+    html += `</table>`;
+    getEl('rating').innerHTML = html;
 }
 
 function drawShult () {

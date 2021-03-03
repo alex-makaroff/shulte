@@ -1,0 +1,35 @@
+#rating div {
+    margin-bottom: 10px;
+}
+
+#rating table {
+    border-collapse: collapse;
+}
+
+#rating table th {
+    text-align: left;
+}
+
+#rating table tr:first-child {
+    background-color: #efefef;
+}
+
+#rating table tr:nth-child(2) td {
+    color: #5ab175;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+
+.rate {
+    width: 30px;
+}
+
+.name {
+    width: 150px;
+}
+
+.time {
+    width: 75px;
+    text-align: right;
+}
