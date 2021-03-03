@@ -107,6 +107,51 @@ function drawShult () {
     getEl('shult').innerHTML = html;
 }
 
+function blinkCell (tdEl, color) {
+    tdEl.style.backgroundColor = color;
+    setTimeout(() => {
+        tdEl.style.backgroundColor = 'transparent';
+    }, 200)
+}
+
+function blinkStartButton () {
+    const startStopBtn = getEl('startStopBtn');
+    startStopBtn.src = 'img/play-red.svg';
+    setTimeout(() => {
+        startStopBtn.src = 'img/play.svg';
+    }, 200)
+}
+
+function good (tdEl) {
+    nextIndex++;
+    blinkCell(tdEl, 'lime');
+    if (nextIndex >= sortedArr.length) {
+        startStop();
+    } else {
+        drawProgress();
+    }
+}
+
+function bad (tdEl) {
+    blinkCell(tdEl, 'red');
+}
+
+function cellClick (tdEl) {
+    if (!isStarted) {
+        return blinkStartButton();
+    }
+    let num = tdEl.innerText;
+    if (!/^\d+$/.test(num)) {
+        return; // если содержимое элемента, на котором кликнули, не является числом, то ничего не делаем
+    }
+    num = +num;
+    if (num === sortedArr[nextIndex]) {
+        good(tdEl);
+    } else {
+        bad(tdEl);
+    }
+}
+
 function onLoad () {
     drawRating();
     drawShult();
