@@ -84,8 +84,27 @@ function drawRating () {
     getEl('rating').innerHTML = html;
 }
 
+/**
+ * Отрисовка таблицы Шульта
+ */
 function drawShult () {
+    nextIndex = 0;
+    sortedArr = getSequenceArray(MIN_NUM, MAX_NUM);
+    shultArr = [...sortedArr]
+    shuffleArray(shultArr)
 
+    // Накрутить строку HTML-таблицу
+    let html = `<table id="shult">`;
+    // Таблица выглядит примерно так:
+    for (let r = 0; r < ADGE_LEN; r++) {
+        html += `<tr>`
+        for (let c = 0; c < ADGE_LEN; c++) {
+            html += `<td onclick="cellClick(this)">${shultArr[r * ADGE_LEN + c]}</td>`
+        }
+        html += `</tr>`
+    }
+    html += `</table>`;
+    getEl('shult').innerHTML = html;
 }
 
 function onLoad () {
