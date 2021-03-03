@@ -84,12 +84,30 @@ function drawRating () {
     getEl('rating').innerHTML = html;
 }
 
+function blinkName () {
+    const nameStyle = getStyle('name');
+    nameStyle.backgroundColor = '#ffc0c0'
+    setTimeout(() => {
+        nameStyle.backgroundColor = 'transparent';
+    }, 200)
+}
+
 function start () {
+    const nameEl = getEl('name');
+    const name = nameEl.value.trim()
+    if (!name) {
+        return blinkName();
+    }
     isStarted = true;
+
+    getEl('startStopBtn').src = 'img/stop.svg';
+    nameEl.disabled = true;
 }
 
 function stop () {
     isStarted = false;
+    nameEl.disabled = false;
+
 }
 
 function startStop () {
