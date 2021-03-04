@@ -106,6 +106,7 @@ function getRating () {
 function clearRating () {
     if (confirm('Вы уверны?')) {
         rating = [];
+        saveRating();
         drawRating();
     }
 }

@@ -76,3 +76,8 @@ body {
 #startStopBtn {
     width: 40px;
 }
+
+#presentation {
+    margin-left: 200px;
+    color: #c5c5c5;
+}
