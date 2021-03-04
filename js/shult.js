@@ -1,6 +1,6 @@
-let MIN_NUM = 1;
-let ADGE_LEN = 2; // Длина стороны квадрата
-let MAX_NUM = (ADGE_LEN ** 2) + MIN_NUM - 1; //  5 ** 2 = 25; 25 - 1 + 1 == 25
+let MIN_NUM;
+let ADGE_LEN; // Длина стороны квадрата
+let MAX_NUM; //  5 ** 2 = 25; 25 - 1 + 1 == 25
 let nextIndex = 0;
 let sortedArr = [];
 let shultArr = [];
@@ -16,6 +16,18 @@ let rating = [
     ["Петр", 36.5],
 ];
 
+function setDimension(adgeLen = 5, minNum = 1){
+    MIN_NUM = minNum;
+
+    adgeLen = Math.floor(adgeLen);
+    adgeLen = Math.min(10, adgeLen);
+    adgeLen = Math.max(2, adgeLen);
+    ADGE_LEN = adgeLen;
+
+    MAX_NUM = (ADGE_LEN ** 2) + MIN_NUM - 1; //  5 ** 2 = 25; 25 + 1 - 1 == 25
+}
+
+setDimension();
 
 function getEl (id) {
     return document.getElementById(id);
@@ -95,8 +107,6 @@ function getRating () {
 }
 
 
-
-
 /**
  * Отрисовка таблицы рейтинга
  */
@@ -171,11 +181,11 @@ function drawProgress () {
     //если не isStarted, то скрываем
     const plStyle = getStyle('progressLine')
     if (!isStarted) {
-         plStyle.visibility = 'hidden';
+        plStyle.visibility = 'hidden';
         return 0;
     }
     plStyle.visibility = 'visible';
-    const pbStyle =  getStyle('progressBar');
+    const pbStyle = getStyle('progressBar');
     if (!nextIndex || !sortedArr.length) {
         pbStyle.width = '0';
         return 0;
