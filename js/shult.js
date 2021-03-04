@@ -27,8 +27,6 @@ function setDimension(adgeLen = 5, minNum = 1){
     MAX_NUM = (ADGE_LEN ** 2) + MIN_NUM - 1; //  5 ** 2 = 25; 25 + 1 - 1 == 25
 }
 
-setDimension();
-
 function getEl (id) {
     return document.getElementById(id);
 }
@@ -269,12 +267,6 @@ function cellClick (tdEl) {
     }
 }
 
-function onLoad () {
-    getRating();
-    drawRating();
-    drawShult();
-}
-
 
 function getTime () {
     const now = +(new Date());
@@ -284,6 +276,13 @@ function getTime () {
 
 function drawTime () {
     getEl('timer').innerText = `${getTime().toFixed(1)} с`;
+}
+
+function onLoad () {
+    setDimension();
+    getRating();
+    drawRating();
+    drawShult();
 }
 
 setInterval(() => {
