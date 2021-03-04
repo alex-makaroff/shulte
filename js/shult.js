@@ -59,11 +59,43 @@ function sortRating () {
 }
 
 /**
- * добовляем нового или обновляем старого игрока в рейтинг и сохроняем его в браузере
+ * Обновление рейтинга игрока в памяти
+ */
+function updateRating () {
+    const name = getEl('name').value.trim();
+    const time = getTime();
+
+    // Обновление рейтинга для плеера (в памяти)
+    const player = rating.find((element) => {
+        return element[0].toLowerCase() === name.toLowerCase();
+    });
+
+    if (player) {
+        player[1] = Math.min(player[1], time);
+    } else {
+        rating.push([name, time]);
+    }
+}
+
+/**
+ * Сохранение рейтинга в браузере
  */
 function saveRating () {
-
+    localStorage.setItem('rating', JSON.stringify(rating));
 }
+
+function getRating () {
+    const value = localStorage.getItem('rating');
+    if (!value) {
+        rating = [];
+    } else {
+        rating = JSON.parse(value);
+    }
+    return rating;
+}
+
+
+
 
 /**
  * Отрисовка таблицы рейтинга
@@ -114,13 +146,16 @@ function start () {
 }
 
 function stop () {
-    drawProgress()
+    const percent = drawProgress();
     isStarted = false;
-    nameEl.disabled = false;
-    drawTime();
-    startTS = 0;
     getEl('startStopBtn').src = 'img/play.svg';
+    getEl('name').disabled = false;
+    drawTime();
+    if (percent > 99.99) {
+        updateRating(); // Обновляем рейтинг игрока в памяти
+    }
     saveRating();
+    startTS = 0;
     drawRating();
 }
 
@@ -137,22 +172,23 @@ function drawProgress () {
     const plStyle = getStyle('progressLine')
     if (!isStarted) {
          plStyle.visibility = 'hidden';
-        return;
+        return 0;
     }
     plStyle.visibility = 'visible';
-    //если isStarded, то отрисовываем и устанавлеваем процент
     const pbStyle =  getStyle('progressBar');
     if (!nextIndex || !sortedArr.length) {
         pbStyle.width = '0';
-        return;
+        return 0;
     }
 
     if (nextIndex >= sortedArr.length) {
         pbStyle.width = '100%';
-        return;
+        return 100;
     }
-    pbStyle.width = `${((nextIndex / sortedArr.length) * 100).toFixed(2)}%`
 
+    const percent = Math.round((nextIndex / sortedArr.length) * 1000) / 10;
+    pbStyle.width = `${percent.toFixed(1)}%`;
+    return percent;
 }
 
 /**
@@ -224,9 +260,11 @@ function cellClick (tdEl) {
 }
 
 function onLoad () {
+    getRating();
     drawRating();
     drawShult();
 }
+
 
 function getTime () {
     const now = +(new Date());
