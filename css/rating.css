@@ -1,3 +1,28 @@
+.rating-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rating-title {
+    width: 80px;
+}
+
+.rating-title-space {
+    width: 90px;
+}
+
+.clear-rating  {
+    width: 16px;
+}
+.clear-rating img {
+    width: 16px;
+}
+
+
+
+
 #rating div {
     margin-bottom: 10px;
 }
