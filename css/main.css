@@ -34,15 +34,15 @@ body {
 }
 
 #left {
-    width: 400px;
+    width: 300px;
 }
 
 #center {
-    width: calc(5 * 100px + 1px);
+    width: calc(5 * 80px + 1px);
 }
 
 #right {
-    width: 400px;
+    width: 300px;
 }
 
 #controls {

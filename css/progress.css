@@ -1,7 +1,7 @@
 #progressLine {
     visibility: hidden;
     height: 10px;
-    width: calc(5 * 100px);
+    width: calc(5 * 80px);
     margin: 20px 0;
     border: 1px solid #efefef;
 }
