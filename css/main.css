@@ -38,7 +38,7 @@ body {
 }
 
 #center {
-    width: calc(5 * 80px + 1px);
+    width: calc(5 * 75px + 1px);
 }
 
 #right {

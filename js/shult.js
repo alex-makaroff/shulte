@@ -103,6 +103,13 @@ function getRating () {
     return rating;
 }
 
+function clearRating () {
+    if (confirm('Вы уверны?')) {
+        rating = [];
+        drawRating();
+    }
+}
+
 
 /**
  * Отрисовка таблицы рейтинга
@@ -110,7 +117,10 @@ function getRating () {
 function drawRating () {
     sortRating();
 
-    let html = `<div class="rating-header"><div class="rating-title">Рейтинг</div><div class="clear-rating"><img src="img/trash.svg" alt="Очистить рейтинг"></div></div>
+    let html = `<div class="rating-header">
+<div class="rating-title">Рейтинг</div>
+<div class="clear-rating"><img onclick="clearRating()" src="img/trash.svg"  alt="Очистить рейтинг" title="Очистить рейтинг"></div>
+</div>
     <table>
         <tr>
             <th class="rate">#</th>
