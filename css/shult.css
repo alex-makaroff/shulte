@@ -1,3 +1,16 @@
+#shult {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    user-select: none;
+}
+
+#shult table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    cursor: default;
+}
+
 #shult table td {
     border: 1px solid black;
     width: 100px;
@@ -6,15 +19,4 @@
     vertical-align: middle;
     font-size: 50px;
     cursor: default;
-}
-
-#shult table {
-    border-collapse: collapse;
-    cursor: default;
-}
-
-#shult {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
 }

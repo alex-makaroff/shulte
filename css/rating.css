@@ -6,12 +6,13 @@
     border-collapse: collapse;
 }
 
-#rating table th {
-    text-align: left;
-}
-
 #rating table tr:first-child {
     background-color: #efefef;
+}
+
+#rating table th {
+    text-align: left;
+    font-weight: 400;
 }
 
 #rating table tr:nth-child(2) td {
@@ -19,7 +20,6 @@
     font-weight: bold;
     padding-top: 10px;
 }
-
 
 .rate {
     width: 30px;
@@ -30,6 +30,6 @@
 }
 
 .time {
-    width: 75px;
     text-align: right;
+    width: 75px;
 }

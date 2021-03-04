@@ -1,6 +1,6 @@
 let MIN_NUM;
 let ADGE_LEN; // Длина стороны квадрата
-let MAX_NUM; //  5 ** 2 = 25; 25 - 1 + 1 == 25
+let MAX_NUM; // Вычисляется на основании размера квадрата
 let nextIndex = 0;
 let sortedArr = [];
 let shultArr = [];
@@ -16,7 +16,7 @@ let rating = [
     ["Петр", 36.5],
 ];
 
-function setDimension(adgeLen = 5, minNum = 1){
+function setDimension (adgeLen = 5, minNum = 1) {
     MIN_NUM = minNum;
 
     adgeLen = Math.floor(adgeLen);
@@ -32,13 +32,12 @@ function getEl (id) {
 }
 
 function getStyle (id) {
-    const el = getEl(id)
+    const el = getEl(id);
     return el && el.style;
 }
 
-
 /**
- * возвращает массив последовательных целых чисел от min до max
+ * Возвращает массив - последовательность целых чисел от min до max
  * @param {Number} min
  * @param {Number} max
  * @return {Number[]}
@@ -48,7 +47,7 @@ function getSequenceArray (min, max) {
 }
 
 /**
- * Перемещивает массив случайным образом
+ * Перемешивает массив случайным образом
  * @param {Array} array
  */
 function shuffleArray (array) {
@@ -63,9 +62,9 @@ function shuffleArray (array) {
  * Сортирует глобально объявленный массив rating по возрастанию времени
  */
 function sortRating () {
-    rating.sort((a, b) => {
-        return a[1] - b[1];
-    });
+    rating.sort((playerA, playerB) => {
+        return playerA[1] - playerB[1];
+    })
 }
 
 /**
@@ -131,53 +130,48 @@ function drawRating () {
     getEl('rating').innerHTML = html;
 }
 
-function blinkName () {
-    const nameStyle = getStyle('name');
-    nameStyle.backgroundColor = '#ffc0c0'
-    setTimeout(() => {
-        nameStyle.backgroundColor = 'transparent';
-    }, 200)
-}
+/**
+ * Отрисовка таблицы Шульта
+ */
+function drawShult () {
+    nextIndex = 0;
+    sortedArr = getSequenceArray(MIN_NUM, MAX_NUM); // запоминаем последовательность для контроля прохождения
+    shultArr = [...sortedArr];
+    shuffleArray(shultArr);
 
-function start () {
-    const nameEl = getEl('name');
-    const name = nameEl.value.trim()
-    if (!name) {
-        return blinkName();
+    let html = '<table id="shult">';
+    for (let r = 0; r < ADGE_LEN; r++) {
+        html += `<tr>`;
+        for (let c = 0; c < ADGE_LEN; c++) {
+            html += `<td onclick="cellClick(this)">${shultArr[r * ADGE_LEN + c]}</td>`;
+        }
+        html += `</tr>`;
     }
-    isStarted = true;
-    startTS = +(new Date());
-    getEl('startStopBtn').src = 'img/stop.svg';
-    nameEl.disabled = true;
-    drawShult();
-    drawProgress();
+    html += `</table>`;
+    getEl('shult').innerHTML = html;
 }
 
-function stop () {
-    const percent = drawProgress();
-    isStarted = false;
-    getEl('startStopBtn').src = 'img/play.svg';
-    getEl('name').disabled = false;
-    drawTime();
-    if (percent > 99.99) {
-        updateRating(); // Обновляем рейтинг игрока в памяти
-    }
-    saveRating();
-    startTS = 0;
-    drawRating();
+/**
+ * Возвращает время, затраченное игроком на таблицу на данный момент в секундах с десятыми долями.
+ * @return {number}
+ */
+function getTime () {
+    const now = +(new Date());
+    timer = now - startTS;
+    return Math.round(timer / 100) / 10;
 }
 
-function startStop () {
-    if (isStarted) {
-        stop();
-    } else {
-        start();
-    }
+function drawTime () {
+    getEl('timer').innerText = `${getTime().toFixed(1)} с`;
 }
 
+/**
+ * Отрисовывает прогресс-бар и возвращает актуальное значение прогресса
+ * @return {Number}
+ */
 function drawProgress () {
-    //если не isStarted, то скрываем
-    const plStyle = getStyle('progressLine')
+    // Если не isStarted - скрываем
+    const plStyle = getStyle('progressLine');
     if (!isStarted) {
         plStyle.visibility = 'hidden';
         return 0;
@@ -199,42 +193,48 @@ function drawProgress () {
     return percent;
 }
 
-/**
- * Отрисовка таблицы Шульта
- */
-function drawShult () {
-    nextIndex = 0;
-    sortedArr = getSequenceArray(MIN_NUM, MAX_NUM);
-    shultArr = [...sortedArr]
-    shuffleArray(shultArr)
-
-    // Накрутить строку HTML-таблицу
-    let html = `<table id="shult">`;
-    // Таблица выглядит примерно так:
-    for (let r = 0; r < ADGE_LEN; r++) {
-        html += `<tr>`
-        for (let c = 0; c < ADGE_LEN; c++) {
-            html += `<td onclick="cellClick(this)">${shultArr[r * ADGE_LEN + c]}</td>`
-        }
-        html += `</tr>`
+function stop () {
+    const percent = drawProgress();
+    isStarted = false;
+    getEl('startStopBtn').src = 'img/play.svg';
+    getEl('name').disabled = false;
+    drawTime();
+    if (percent > 99.99) {
+        updateRating(); // Обновляем рейтинг игрока в памяти
     }
-    html += `</table>`;
-    getEl('shult').innerHTML = html;
+    saveRating();
+    drawRating();
+    startTS = 0;
 }
 
-function blinkCell (tdEl, color) {
-    tdEl.style.backgroundColor = color;
+function blinkName () {
+    const nameStyle = getStyle('name');
+    nameStyle.backgroundColor = '#ffc0c0'
     setTimeout(() => {
-        tdEl.style.backgroundColor = 'transparent';
+        nameStyle.backgroundColor = 'transparent';
     }, 200)
 }
 
-function blinkStartButton () {
-    const startStopBtn = getEl('startStopBtn');
-    startStopBtn.src = 'img/play-red.svg';
-    setTimeout(() => {
-        startStopBtn.src = 'img/play.svg';
-    }, 200)
+function start () {
+    const nameEl = getEl('name');
+    const name = nameEl.value.trim();
+    if (!name) {
+        return blinkName();
+    }
+    isStarted = true;
+    startTS = +(new Date());
+    getEl('startStopBtn').src = 'img/stop.svg';
+    nameEl.disabled = true;
+    drawShult();
+    drawProgress();
+}
+
+function startStop () {
+    if (isStarted) {
+        stop();
+    } else {
+        start();
+    }
 }
 
 function good (tdEl) {
@@ -247,8 +247,23 @@ function good (tdEl) {
     }
 }
 
+function blinkCell (tdEl, color) {
+    tdEl.style.backgroundColor = color;
+    setTimeout(() => {
+        tdEl.style.backgroundColor = 'transparent';
+    }, 200)
+}
+
 function bad (tdEl) {
     blinkCell(tdEl, 'red');
+}
+
+function blinkStartButton () {
+    const startStopBtn = getEl('startStopBtn');
+    startStopBtn.src = 'img/play-red.svg';
+    setTimeout(() => {
+        startStopBtn.src = 'img/play.svg';
+    }, 200)
 }
 
 function cellClick (tdEl) {
@@ -265,17 +280,6 @@ function cellClick (tdEl) {
     } else {
         bad(tdEl);
     }
-}
-
-
-function getTime () {
-    const now = +(new Date());
-    timer = now - startTS;
-    return Math.round(timer / 100) / 10;
-}
-
-function drawTime () {
-    getEl('timer').innerText = `${getTime().toFixed(1)} с`;
 }
 
 function onLoad () {

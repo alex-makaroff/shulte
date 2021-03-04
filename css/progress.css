@@ -1,14 +1,13 @@
-
 #progressLine {
+    visibility: hidden;
     height: 10px;
-    width: 500px;
+    width: calc(5 * 100px);
     margin: 20px 0;
     border: 1px solid #efefef;
-    visibility: hidden;
 }
 
 #progressBar {
     height: 10px;
-    background-color: #a9ffa9;
     width: 0;
+    background-color: #a9ffa9;
 }

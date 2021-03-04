@@ -1,26 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Shult battle</title>
-<link rel="stylesheet" href="css/main.css">
-<link rel="stylesheet" href="css/progress.css">
-<link rel="stylesheet" href="css/rating.css">
-<link rel="stylesheet" href="css/shult.css">
-<script src="js/shult.js"></script>
+    <meta charset="UTF-8">
+    <title>Shult battle</title>
+    <script src="js/shult.js"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/rating.css">
+    <link rel="stylesheet" href="css/shult.css">
+    <link rel="stylesheet" href="css/progress.css">
+    <link rel="icon" type="image/ico" href="/favicon.ico">
 </head>
 <body onload="onLoad()">
 <div id="container">
-    <div id="header"><h2>Шульт баттл</h2></div>
+    <div id="header">
+        <h2>Шульт-баттл</h2>
+    </div>
     <div id="body">
         <div id="left">
             <div id="rating"></div>
         </div>
         <div id="center">
             <div id="controls">
-                <input type="text" id="name" maxlength="15" placeholder="ваше имя">
+                <input id="name" type="text" maxlength="15" placeholder="ваше имя">
                 <div id="timer">0.0</div>
-                <img onclick="startStop()" id="startStopBtn" src="img/play.svg" alt="стоп/пуск">
+                <img id="startStopBtn" src="img/play.svg" onclick="startStop()" alt="стоп/пуск"/>
             </div>
             <div id="progressLine">
                 <div id="progressBar"></div>
@@ -30,11 +33,10 @@
         <div id="right"></div>
     </div>
     <div id="footer">
-        <span id="am">
-        Александр Макаров
-        <a target="_telegram" href="https://t.me/Alex_Makarow"><img id="telegram" src="img/telegram-plane.svg" alt=""></a>
+        <span id="am">Александр Макаров.
+            <a target="_telegram" href='https://t.me/Alex_Makarow'><img id="telegram" src="img/telegram-plane.svg" alt="telegram"/></a>
         </span>
-        <span>Проектная работа ВДЦ "СМЕНА 2021" </span>
+        <span>Проектная работа. ВДЦ "СМЕНА" 2021</span>
     </div>
 </div>
 </body>
