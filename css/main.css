@@ -81,3 +81,8 @@ body {
     margin-left: 200px;
     color: #c5c5c5;
 }
+
+#offOnVolumeBtn{
+    width: 20px;
+    height: 20px;
+}

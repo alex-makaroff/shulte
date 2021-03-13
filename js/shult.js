@@ -15,6 +15,7 @@ let rating = [
     ["Екатерина", 31.5],
     ["Петр", 36.5],
 ];
+let isPlaying = true;
 
 function setDimension (adgeLen = 5, minNum = 1) {
     MIN_NUM = minNum;
@@ -212,6 +213,7 @@ function stop () {
     drawTime();
     if (percent > 99.99) {
         updateRating(); // Обновляем рейтинг игрока в памяти
+        alert('игра пройдена! ваш результат: ' + getTime() + 'с')
     }
     saveRating();
     drawRating();
@@ -230,6 +232,7 @@ function start () {
     const nameEl = getEl('name');
     const name = nameEl.value.trim();
     if (!name) {
+        alert("введите имя")
         return blinkName();
     }
     isStarted = true;
@@ -279,6 +282,7 @@ function blinkStartButton () {
 
 function cellClick (tdEl) {
     if (!isStarted) {
+        alert('нажмите кнопку "старт"')
         return blinkStartButton();
     }
     let num = tdEl.innerText;
@@ -290,6 +294,25 @@ function cellClick (tdEl) {
         good(tdEl);
     } else {
         bad(tdEl);
+        soundClick()
+    }
+}
+
+function changeSoundBtn () {
+    if (isPlaying) {
+        isPlaying = false
+        getEl('offOnVolumeBtn').src = 'img/volume-off.svg';
+    } else {
+        isPlaying = true
+        getEl('offOnVolumeBtn').src = 'img/volume-on.svg'
+    }
+}
+
+function soundClick() {
+    if (isPlaying) {
+        let audio = new Audio();
+        audio.src = 'sounds/error.mp3';
+        audio.autoplay = true;
     }
 }
 
