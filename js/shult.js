@@ -155,7 +155,7 @@ function drawShult () {
     for (let r = 0; r < ADGE_LEN; r++) {
         html += `<tr>`;
         for (let c = 0; c < ADGE_LEN; c++) {
-            html += `<td onclick="cellClick(this)">${shultArr[r * ADGE_LEN + c]}</td>`;
+            html += `<td id="td${shultArr[r * ADGE_LEN + c]}" onclick="cellClick(this)">${shultArr[r * ADGE_LEN + c]}</td>`;
         }
         html += `</tr>`;
     }
@@ -205,6 +205,14 @@ function drawProgress () {
     return percent;
 }
 
+function playHappySound () {
+    if (isPlaying) {
+        let audio = new Audio();
+        audio.src = 'sounds/happy.mp3';
+        audio.autoplay = true;
+    }
+}
+
 function stop () {
     const percent = drawProgress();
     isStarted = false;
@@ -213,7 +221,8 @@ function stop () {
     drawTime();
     if (percent > 99.99) {
         updateRating(); // Обновляем рейтинг игрока в памяти
-        alert('игра пройдена! ваш результат: ' + getTime() + 'с')
+        playHappySound();
+        alert('игра пройдена! ваш результат: ' + getTime() + 'с');
     }
     saveRating();
     drawRating();
@@ -223,7 +232,14 @@ function stop () {
 function blinkName () {
     const nameStyle = getStyle('name');
     nameStyle.backgroundColor = '#ffc0c0'
+    nameStyle.width = '200px'
+    nameStyle.height = '80px'
+    nameStyle.fontSize = '40px'
+
     setTimeout(() => {
+        nameStyle.width = '200px'
+        nameStyle.height = '40px'
+        nameStyle.fontSize = '20px'
         nameStyle.backgroundColor = 'transparent';
     }, 200)
 }
@@ -232,7 +248,7 @@ function start () {
     const nameEl = getEl('name');
     const name = nameEl.value.trim();
     if (!name) {
-        alert("введите имя")
+        // alert("введите имя")
         return blinkName();
     }
     isStarted = true;
@@ -275,14 +291,16 @@ function bad (tdEl) {
 function blinkStartButton () {
     const startStopBtn = getEl('startStopBtn');
     startStopBtn.src = 'img/play-red.svg';
+    getStyle('startStopBtn').width = '80px'
     setTimeout(() => {
+        getStyle('startStopBtn').width = '40px'
         startStopBtn.src = 'img/play.svg';
     }, 200)
 }
 
 function cellClick (tdEl) {
     if (!isStarted) {
-        alert('нажмите кнопку "старт"')
+        // alert('нажмите кнопку "старт"')
         return blinkStartButton();
     }
     let num = tdEl.innerText;
@@ -294,7 +312,7 @@ function cellClick (tdEl) {
         good(tdEl);
     } else {
         bad(tdEl);
-        soundClick()
+        errorSound()
     }
 }
 
@@ -308,7 +326,46 @@ function changeSoundBtn () {
     }
 }
 
-function soundClick() {
+let tdId = 0
+
+function cheatClick () {
+    if (tdId === 25) {
+        tdId = 0
+        return false
+    }
+
+
+
+}
+
+function cheat () {
+    if (!getEl('name').value) {
+        alert('имя введи!')
+        return false
+    }
+
+    if (!isStarted) {
+        start()
+    }
+
+    if (tdId === 25) {
+        stop()
+        tdId = 0
+        return false
+    }
+    tdId++
+    getEl('td' + tdId).click()
+        setTimeout(cheatClick, 100)
+}
+
+let cursor = 0;
+const KONAMI_CODE = [67, 72, 69, 65, 84];
+document.addEventListener('keydown', (e) => {
+    cursor = (e.keyCode === KONAMI_CODE[cursor]) ? cursor + 1 : 0;
+    if (cursor === KONAMI_CODE.length) cheat();
+});
+
+function errorSound () {
     if (isPlaying) {
         let audio = new Audio();
         audio.src = 'sounds/error.mp3';

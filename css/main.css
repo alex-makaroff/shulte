@@ -55,6 +55,7 @@ body {
 
 #name {
     width: 200px;
+    height: 40px;
     font-size: 20px;
     padding: 7px 10px;
     box-sizing: border-box;
