@@ -104,6 +104,23 @@ function getRating () {
     return rating;
 }
 
+function saveName () {
+    const lastName = getEl('name').value.trim()
+    if (lastName) {
+        localStorage.setItem('lastName', JSON.stringify(lastName));
+    }
+}
+
+function getName () {
+    const value = localStorage.getItem('lastName');
+    if (!value) {
+        getEl('name').value = '';
+    } else {
+        getEl('name').value = JSON.parse(value);
+    }
+    return getEl('name').value;
+}
+
 function clearRating () {
     if (confirm('Вы уверны?')) {
         rating = [];
@@ -222,7 +239,7 @@ function stop () {
     if (percent > 99.99) {
         updateRating(); // Обновляем рейтинг игрока в памяти
         playHappySound();
-        alert('игра пройдена! ваш результат: ' + getTime() + 'с');
+        alert('Игра пройдена! Ваш результат: ' + getTime() + 'с');
     }
     saveRating();
     drawRating();
@@ -232,14 +249,7 @@ function stop () {
 function blinkName () {
     const nameStyle = getStyle('name');
     nameStyle.backgroundColor = '#ffc0c0'
-    nameStyle.width = '200px'
-    nameStyle.height = '80px'
-    nameStyle.fontSize = '40px'
-
     setTimeout(() => {
-        nameStyle.width = '200px'
-        nameStyle.height = '40px'
-        nameStyle.fontSize = '20px'
         nameStyle.backgroundColor = 'transparent';
     }, 200)
 }
@@ -248,7 +258,7 @@ function start () {
     const nameEl = getEl('name');
     const name = nameEl.value.trim();
     if (!name) {
-        // alert("введите имя")
+        alert("Введите имя")
         return blinkName();
     }
     isStarted = true;
@@ -291,16 +301,14 @@ function bad (tdEl) {
 function blinkStartButton () {
     const startStopBtn = getEl('startStopBtn');
     startStopBtn.src = 'img/play-red.svg';
-    getStyle('startStopBtn').width = '80px'
     setTimeout(() => {
-        getStyle('startStopBtn').width = '40px'
         startStopBtn.src = 'img/play.svg';
     }, 200)
 }
 
 function cellClick (tdEl) {
     if (!isStarted) {
-        // alert('нажмите кнопку "старт"')
+        alert('Нажмите кнопку "Старт"')
         return blinkStartButton();
     }
     let num = tdEl.innerText;
@@ -326,21 +334,23 @@ function changeSoundBtn () {
     }
 }
 
-let tdId = 0
-
 function cheatClick () {
-    if (tdId === 25) {
-        tdId = 0
-        return false
-    }
 
+    const tdEl = getEl('td' + (nextIndex + 1))
+    tdEl.click()
 
+    cheat()
 
 }
 
+let cheathelp;
+
 function cheat () {
+
+    cheathelp = nextIndex
+
     if (!getEl('name').value) {
-        alert('имя введи!')
+        alert('Введите имя')
         return false
     }
 
@@ -348,14 +358,29 @@ function cheat () {
         start()
     }
 
-    if (tdId === 25) {
+    if (cheathelp === 25) {
         stop()
-        tdId = 0
         return false
     }
-    tdId++
-    getEl('td' + tdId).click()
-        setTimeout(cheatClick, 100)
+
+    setTimeout(cheatClick, 100)
+}
+
+function helpMe () {
+    if (!isStarted) {
+        return false
+    }
+
+    if (nextIndex === 24) {
+        stop()
+    }
+
+
+    const tdEl = getEl('td' + (nextIndex + 1))
+    tdEl.style.backgroundColor = 'yellow'
+    setTimeout(() => {
+        tdEl.style.backgroundColor = 'transparent';
+    }, 200)
 }
 
 let cursor = 0;
@@ -363,6 +388,13 @@ const KONAMI_CODE = [67, 72, 69, 65, 84];
 document.addEventListener('keydown', (e) => {
     cursor = (e.keyCode === KONAMI_CODE[cursor]) ? cursor + 1 : 0;
     if (cursor === KONAMI_CODE.length) cheat();
+});
+
+let cursor2 = 0;
+const HELP_CODE = [72];
+document.addEventListener('keydown', (e) => {
+    cursor2 = (e.keyCode === HELP_CODE[cursor2]) ? cursor2 + 1 : 0;
+    if (cursor2 === HELP_CODE.length) helpMe();
 });
 
 function errorSound () {
@@ -374,6 +406,7 @@ function errorSound () {
 }
 
 function onLoad () {
+    getName();
     setDimension();
     getRating();
     drawRating();

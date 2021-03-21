@@ -83,6 +83,16 @@ body {
     color: #c5c5c5;
 }
 
+.cheats {
+    margin-left: 200px;
+    font-size: 15px;
+    margin-bottom: 5px;
+}
+
+.cheats b {
+    color: red;
+}
+
 #offOnVolumeBtn{
     width: 20px;
     height: 20px;
