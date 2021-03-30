@@ -97,3 +97,21 @@ body {
     width: 20px;
     height: 20px;
 }
+
+#changeBlockCount {
+    margin-left: 150px;
+    padding: 7px 10px;
+    border: 1px solid #c5c5c5;
+    background: transparent;
+    outline: none;
+}
+
+#changeBlockCountBtn {
+    margin-top: 10px;
+    margin-left: 200px;
+    color: #7c7c7c;
+    border: 1px solid #c5c5c5;
+    background: transparent;
+    outline: none;
+}
+

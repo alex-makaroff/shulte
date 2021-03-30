@@ -16,6 +16,7 @@ let rating = [
     ["Петр", 36.5],
 ];
 let isPlaying = true;
+let isCheating = false
 
 function setDimension (adgeLen = 5, minNum = 1) {
     MIN_NUM = minNum;
@@ -26,6 +27,21 @@ function setDimension (adgeLen = 5, minNum = 1) {
     ADGE_LEN = adgeLen;
 
     MAX_NUM = (ADGE_LEN ** 2) + MIN_NUM - 1; //  5 ** 2 = 25; 25 + 1 - 1 == 25
+    drawShult()
+}
+
+function reset (el) {
+    el.value = '';
+}
+
+function setCellCount () {
+    let cellCount = getEl('changeBlockCount').value
+    if (cellCount !== String(Number(cellCount))) {
+        alert('введите цифру');
+        cellCount = 5;
+        return false;
+    }
+    setDimension(cellCount, 1);
 }
 
 function getEl (id) {
@@ -170,7 +186,7 @@ function drawShult () {
 
     let html = '<table id="shult">';
     for (let r = 0; r < ADGE_LEN; r++) {
-        html += `<tr>`;
+        html += `<tr id="tr${r + 1}" class="trClass">`;
         for (let c = 0; c < ADGE_LEN; c++) {
             html += `<td id="td${shultArr[r * ADGE_LEN + c]}" onclick="cellClick(this)">${shultArr[r * ADGE_LEN + c]}</td>`;
         }
@@ -240,6 +256,12 @@ function stop () {
         updateRating(); // Обновляем рейтинг игрока в памяти
         playHappySound();
         alert('Игра пройдена! Ваш результат: ' + getTime() + 'с');
+        if (!isCheating) {
+            animation()
+        } else {
+            isCheating = false
+        }
+
     }
     saveRating();
     drawRating();
@@ -334,6 +356,10 @@ function changeSoundBtn () {
     }
 }
 
+function randomSec () {
+        return (Math.floor(Math.random() * (50 - 10)) + 10) * 10;
+}
+
 function cheatClick () {
 
     const tdEl = getEl('td' + (nextIndex + 1))
@@ -344,10 +370,15 @@ function cheatClick () {
 }
 
 let cheathelp;
+let sec;
 
 function cheat () {
 
     cheathelp = nextIndex
+
+    if (cheathelp < 1 ) {
+        sec = randomSec()
+    }
 
     if (!getEl('name').value) {
         alert('Введите имя')
@@ -358,12 +389,13 @@ function cheat () {
         start()
     }
 
-    if (cheathelp === 25) {
+    if (cheathelp === ADGE_LEN ** 2) {
+        isCheating = true
         stop()
         return false
     }
 
-    setTimeout(cheatClick, 100)
+    setTimeout(cheatClick, sec)
 }
 
 function helpMe () {
@@ -371,7 +403,7 @@ function helpMe () {
         return false
     }
 
-    if (nextIndex === 24) {
+    if (nextIndex === ADGE_LEN ** 2) {
         stop()
     }
 
@@ -403,6 +435,163 @@ function errorSound () {
         audio.src = 'sounds/error.mp3';
         audio.autoplay = true;
     }
+}
+
+
+function animation () {
+    let tr1 = getStyle('tr1')
+    let tr2 = getStyle('tr2')
+    let tr3 = getStyle('tr3')
+    let tr4 = getStyle('tr4')
+    let tr5 = getStyle('tr5')
+    let shultTable = document.getElementsByClassName('trClass')
+
+    if (ADGE_LEN !== 5) {
+        setTimeout(() => {
+            for (let i = 0; i < shultTable.length; i++) {
+                shultTable[i].style.backgroundColor = '#ff8484'
+            }
+        }, 200)
+         setTimeout(() => {
+            for (let i = 0; i < shultTable.length; i++) {
+                shultTable[i].style.backgroundColor = '#ffdd64'
+            }
+        }, 400)
+         setTimeout(() => {
+            for (let i = 0; i < shultTable.length; i++) {
+                shultTable[i].style.backgroundColor = '#6cff73'
+            }
+        }, 600)
+         setTimeout(() => {
+            for (let i = 0; i < shultTable.length; i++) {
+                shultTable[i].style.backgroundColor = '#6cffee'
+            }
+        }, 800)
+         setTimeout(() => {
+            for (let i = 0; i < shultTable.length; i++) {
+                shultTable[i].style.backgroundColor = '#ff9bfe'
+            }
+        }, 1000)
+
+        setTimeout(() => {
+            for (let i = 0; i < shultTable.length; i++) {
+                shultTable[i].style.backgroundColor = 'transparent'
+            }
+        }, 1400)
+
+
+        setTimeout(() => {
+            for (let i = 0; i < shultTable.length; i++) {
+                shultTable[i].style.backgroundColor = '#ffc484'
+            }
+        }, 1800)
+
+        setTimeout(() => {
+            for (let i = 0; i < shultTable.length; i++) {
+                shultTable[i].style.backgroundColor = 'transparent'
+            }
+        }, 2400)
+    }else {
+
+
+        tr1.backgroundColor = '#ff7878'
+        setTimeout(() => {
+            tr1.backgroundColor = 'transparent'
+        }, 100)
+        setTimeout(() => {
+            tr2.backgroundColor = '#ff7878'
+        }, 200)
+        setTimeout(() => {
+            tr2.backgroundColor = 'transparent'
+        }, 300)
+        setTimeout(() => {
+            tr3.backgroundColor = '#ff7878'
+        }, 400)
+        setTimeout(() => {
+            tr3.backgroundColor = 'transparent'
+        }, 500)
+        setTimeout(() => {
+            tr4.backgroundColor = '#ff7878'
+        }, 600)
+        setTimeout(() => {
+            tr4.backgroundColor = 'transparent'
+        }, 700)
+        setTimeout(() => {
+            tr5.backgroundColor = '#ff7878'
+        }, 800)
+
+        setTimeout(() => {
+            tr1.backgroundColor = '#ffdd64'
+        }, 900)
+        setTimeout(() => {
+            tr1.backgroundColor = 'transparent'
+        }, 1000)
+        setTimeout(() => {
+            tr2.backgroundColor = '#ffdd64'
+        }, 1100)
+        setTimeout(() => {
+            tr2.backgroundColor = 'transparent'
+        }, 1200)
+        setTimeout(() => {
+            tr3.backgroundColor = '#ffdd64'
+        }, 1300)
+        setTimeout(() => {
+            tr3.backgroundColor = 'transparent'
+        }, 1400)
+        setTimeout(() => {
+            tr4.backgroundColor = '#ffdd64'
+        }, 1500)
+
+        setTimeout(() => {
+            tr1.backgroundColor = '#6cff73'
+        }, 1600)
+        setTimeout(() => {
+            tr1.backgroundColor = 'transparent'
+        }, 1700)
+        setTimeout(() => {
+            tr2.backgroundColor = '#6cff73'
+        }, 1800)
+        setTimeout(() => {
+            tr2.backgroundColor = 'transparent'
+        }, 1900)
+        setTimeout(() => {
+            tr3.backgroundColor = '#6cff73'
+        }, 2000)
+
+        setTimeout(() => {
+            tr1.backgroundColor = '#6cffee'
+        }, 2100)
+        setTimeout(() => {
+            tr1.backgroundColor = 'transparent'
+        }, 2200)
+        setTimeout(() => {
+            tr2.backgroundColor = '#6cffee'
+        }, 2300)
+
+        setTimeout(() => {
+            tr1.backgroundColor = '#ff9bfe'
+        }, 2500)
+
+        setTimeout(() => {
+            for (let i = 0; i < shultTable.length; i++) {
+                shultTable[i].style.backgroundColor = 'transparent'
+            }
+        }, 2900)
+
+
+        setTimeout(() => {
+            for (let i = 0; i < shultTable.length; i++) {
+                shultTable[i].style.backgroundColor = '#ffc484'
+            }
+        }, 3000)
+
+        setTimeout(() => {
+            for (let i = 0; i < shultTable.length; i++) {
+                shultTable[i].style.backgroundColor = 'transparent'
+            }
+        }, 3300)
+    }
+
 }
 
 function onLoad () {
