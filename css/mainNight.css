@@ -1,5 +1,14 @@
 body {
+    background: #1d1d1d;
     font-family: sans-serif, Arial, Verdana;
+}
+
+#header {
+    color: white;
+}
+
+#controls input {
+    color: white;
 }
 
 #container {
@@ -87,6 +96,7 @@ body {
     margin-left: 200px;
     font-size: 15px;
     margin-bottom: 5px;
+    color: #ffffff;
 }
 
 .cheats b {
@@ -104,7 +114,7 @@ body {
     border: 1px solid #c5c5c5;
     background: transparent;
     outline: none;
-
+    color: white;
 }
 
 #changeThemeBtn {

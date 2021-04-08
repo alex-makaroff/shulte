@@ -1,0 +1,58 @@
+.rating-header {
+}
+
+.rating-title {
+    color: white;
+    display: inline-block;
+    width: 239px;
+}
+
+.clear-rating  {
+    display: inline-block;
+    width: 16px;
+}
+.clear-rating img {
+    width: 16px;
+}
+
+#rating div {
+    margin-bottom: 10px;
+}
+
+#rating table {
+    border-collapse: collapse;
+}
+
+#rating table tr:first-child {
+    background-color: #343434;
+    color: white;
+}
+
+#rating table tr {
+    background-color: transparent;
+    color: white;
+}
+
+#rating table th {
+    text-align: left;
+    font-weight: 400;
+}
+
+#rating table tr:nth-child(2) td {
+    color: #5ab175;
+    font-weight: bold;
+    padding-top: 10px;
+}
+
+.rate {
+    width: 30px;
+}
+
+.name {
+    width: 150px;
+}
+
+.time {
+    text-align: right;
+    width: 75px;
+}
