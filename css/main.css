@@ -86,7 +86,7 @@ body {
 .cheats {
     margin-left: 200px;
     font-size: 15px;
-    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 .cheats b {
@@ -108,11 +108,6 @@ body {
 }
 
 #changeThemeBtn {
-    margin-top: 10px;
-    margin-left: 200px;
-    color: #7c7c7c;
-    border: 1px solid #c5c5c5;
-    background: transparent;
-    outline: none;
+    height: 21px;
 }
 

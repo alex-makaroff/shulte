@@ -1,5 +1,5 @@
 let MIN_NUM;
-let ADGE_LEN = 5; // Длина стороны квадрата
+let ADGE_LEN; // Длина стороны квадрата
 let MAX_NUM; // Вычисляется на основании размера квадрата
 let nextIndex = 0;
 let sortedArr = [];
@@ -28,7 +28,7 @@ function setDimension (adgeLen = 5, minNum = 1) {
 
     MAX_NUM = (ADGE_LEN ** 2) + MIN_NUM - 1; //  5 ** 2 = 25; 25 + 1 - 1 == 25
     drawShult()
-    return ADGE_LEN
+    shultSize()
 }
 
 function clickPress (event) {
@@ -198,18 +198,17 @@ function drawShult () {
     sortedArr = getSequenceArray(MIN_NUM, MAX_NUM); // запоминаем последовательность для контроля прохождения
     shultArr = [...sortedArr];
     shuffleArray(shultArr);
-    let trId = ADGE_LEN;
-    let html = '<table >';
+    let html = '<table>';
     for (let r = 0; r < ADGE_LEN; r++) {
-        html += `<tr id="tr${trId}" class="trClass">`;
-        trId--;
+        html += `<tr id="tr${r + 1}" class="trClass">`;
         for (let c = 0; c < ADGE_LEN; c++) {
-            html += `<td id="td${shultArr[r * ADGE_LEN + c]}" onclick="cellClick(this)">${shultArr[r * ADGE_LEN + c]}</td>`;
+            html += `<td class="td" id="td${shultArr[r * ADGE_LEN + c]}" onclick="cellClick(this)">${shultArr[r * ADGE_LEN + c]}</td>`;
         }
         html += `</tr>`;
     }
     html += `</table>`;
     getEl('shult').innerHTML = html;
+    shultSize()
 }
 
 /**
@@ -273,7 +272,7 @@ function stop () {
         playHappySound();
         alert('Игра пройдена! Ваш результат: ' + getTime() + 'с');
         if (!isCheating) {
-            timerFillGlass()
+            bigAnim.start()
         } else {
             isCheating = false
         }
@@ -411,7 +410,7 @@ function nightTheme () {
     getEl('offOnVolumeBtn').src = 'img/volume-onNight.svg'
     getEl('trash').src = 'img/trashNight.svg'
     theme = false;
-    getEl('changeThemeBtn').innerHTML = 'светлая тема'
+    getEl('changeThemeBtn').src = 'img/sun.svg'
 }
 
 function dayTheme () {
@@ -421,7 +420,7 @@ function dayTheme () {
     getEl('offOnVolumeBtn').src = 'img/volume-on.svg'
     getEl('trash').src = 'img/trash.svg'
     theme = true;
-    getEl('changeThemeBtn').innerHTML = 'темная тема'
+    getEl('changeThemeBtn').src = 'img/crescent.svg'
 }
 
 let cheathelp;
@@ -445,10 +444,11 @@ function cheat () {
     }
 
     if (cheathelp === ADGE_LEN ** 2) {
-        isCheating = true
         stop()
         return false
     }
+
+    isCheating = true
 
     setTimeout(cheatClick, sec)
 }
@@ -492,101 +492,11 @@ function errorSound () {
     }
 }
 
-// let howManyTimesTheFunctionWasTriggered = 0
-// let trId;
-//
-// let stopRow = 0
-//
-// function animation1 (color) {
-//     if (stopRow === ADGE_LEN) {
-//         return false
-//     }
-//     if (howManyTimesTheFunctionWasTriggered === 0) {
-//         trId = ADGE_LEN
-//         howManyTimesTheFunctionWasTriggered++
-//     }
-//
-//     let trStyle = getStyle('tr' + trId)
-//     trStyle.backgroundColor = color;
-//     if (trId !== stopRow) {
-//         setTimeout(() => {
-//             trStyle.backgroundColor = 'transparent';
-//             animation1()
-//         }, 200)
-//         trId--
-//     } else {
-//         console.log('da');
-//         animation1PartTwo()
-//     }
-//
-// }
-//
-// function animation1PartTwo () {
-//     let color = generateColor()
-//     trId = ADGE_LEN
-//     animation1(color)
-//     stopRow++
-// }
 
-function generateColor () {
-    return '#' + Math.floor(Math.random() * 16777215).toString(16)
-}
 
-function blinkRow(rowNum, color, targetRow){
-    return new Promise((resolve)=>{
-        let trStyle = getStyle('tr' + rowNum)
-        if (rowNum === targetRow) {
-            trStyle.backgroundColor = color
-            return false
-        }
-        trStyle.backgroundColor = color;
-        setTimeout(() => {
-            trStyle.backgroundColor = 'transparent';
-            resolve();
-        }, 200)
-    })
-}
 
-async function follingRow(targetRow, color){
-    let cursor = 1;
-    while(cursor <= targetRow) {
-        await blinkRow(cursor, color, targetRow);
-        cursor++;
-    }
-}
 
-let adgeLen = ADGE_LEN;
 
-function fillGlass(){
-    let color = generateColor()
-    if (adgeLen === 0) {
-        let trs = document.getElementsByClassName('trClass')
-        for (let i = 0; i < trs.length; i++) {
-            trs[i].style.backgroundColor = 'transparent'
-
-        }
-        adgeLen = ADGE_LEN
-        return false
-    }
-
-    for (let targetRow = adgeLen; targetRow > 0; targetRow--) {
-        follingRow(targetRow, color);
-    }
-    adgeLen--
-    timerFillGlass()
-}
-
-function timerFillGlass () {
-    let time;
-    if (adgeLen === ADGE_LEN) {
-        time = 0
-    } else {
-        time = 200 * ADGE_LEN
-    }
-    setTimeout(() => {
-        fillGlass()
-    }, time)
-}
 
 function onLoad () {
     getName();
