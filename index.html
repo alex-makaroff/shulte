@@ -7,6 +7,7 @@
     <script src="js/shultSize.js"></script>
     <script src="js/animation.js"></script>
     <link id="mainStyle" rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/alwaysUsed.css">
     <link id="ratingStyle" rel="stylesheet" href="css/rating.css">
     <link id="shultStyle" rel="stylesheet" href="css/shult.css">
     <link rel="stylesheet" href="css/progress.css">
@@ -37,10 +38,12 @@
             <div id="shult"></div>
         </div>
         <div id="right">
-            <a id="presentation" href="shulte_table_on_javascript.pptx">презентация</a>
-            <div class="cheats">for hints click <b>H</b> on your keyboard </div>
-            <div class="cheats">for cheat write <b>cheat</b> on your keyboard </div>
-            <input id="changeBlockCount" type="number" onkeypress="clickPress(event)" maxlength="15" placeholder="длина стороны">
+            <div id="hints">
+                <div class="cheats">for hints click <b>H</b> on your keyboard </div>
+                <div class="cheats">for cheat write <b>cheat</b> on your keyboard </div>
+            </div>
+            <button id="displayHints" onclick="displayHints()" >показать подсказку </button>
+            <input id="changeBlockCount" type="number"  onkeypress="clickPress(event)" maxlength="15" placeholder="длина стороны">
         </div>
 
     </div>

@@ -423,6 +423,21 @@ function dayTheme () {
     getEl('changeThemeBtn').src = 'img/crescent.svg'
 }
 
+let isDisplaying = false
+
+function displayHints () {
+    let hintsStyle = getStyle('hints')
+    if (!isDisplaying) {
+        hintsStyle.display = 'block'
+        getEl('displayHints').innerText = 'скрыть подсказку'
+        return isDisplaying = true
+    }
+    hintsStyle.display = 'none'
+    getEl('displayHints').innerText = 'показать подсказку'
+    return isDisplaying = false
+
+}
+
 let cheathelp;
 let sec;
 
