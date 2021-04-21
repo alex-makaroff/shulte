@@ -46,7 +46,7 @@ function reset (el) {
 function setCellCount () {
     let cellCount = getEl('changeBlockCount').value
     if (cellCount !== String(Number(cellCount))) {
-        alert('введите цифру');
+        notify('введите цифру');
         cellCount = 5;
         return false;
     }
@@ -270,7 +270,7 @@ function stop () {
     if (percent > 99.99) {
         updateRating(); // Обновляем рейтинг игрока в памяти
         playHappySound();
-        alert('Игра пройдена! Ваш результат: ' + getTime() + 'с');
+        notify('Игра пройдена! Ваш результат: ' + getTime() + 'с', 5000);
         if (!isCheating) {
             bigAnim.start()
         } else {
@@ -291,17 +291,26 @@ function blinkName () {
     }, 200)
 }
 
-function start () {
+function checkName () {
     const nameEl = getEl('name');
     const name = nameEl.value.trim();
     if (!name) {
-        alert("Введите имя")
-        return blinkName();
+        notify("Введите имя")
+        blinkName();
+        return false;
+    }
+    return true;
+}
+
+
+function start () {
+    if (!checkName()) {
+        return;
     }
     isStarted = true;
     startTS = +(new Date());
     getEl('startStopBtn').src = 'img/stop.svg';
-    nameEl.disabled = true;
+    getEl('name').disabled = true;
     drawShult();
     drawProgress();
 }
@@ -344,8 +353,11 @@ function blinkStartButton () {
 }
 
 function cellClick (tdEl) {
+    if (!checkName()) {
+        return;
+    }
     if (!isStarted) {
-        alert('Нажмите кнопку "Старт"')
+        notify('Нажмите кнопку "Старт"')
         return blinkStartButton();
     }
     let num = tdEl.innerText;
@@ -450,7 +462,7 @@ function cheat () {
     }
 
     if (!getEl('name').value) {
-        alert('Введите имя')
+        notify('Введите имя')
         return false
     }
 
@@ -507,7 +519,14 @@ function errorSound () {
     }
 }
 
-
+function notify(html, delay = 3000) {
+    const el = getEl('notify');
+    el.innerHTML = html;
+    el.style.display = 'block';
+    setTimeout(()=>{
+        el.style.display = 'none';
+    }, delay)
+}
 
 
 

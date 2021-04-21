@@ -95,7 +95,7 @@ body {
     color: red;
 }
 
-#offOnVolumeBtn{
+#offOnVolumeBtn {
     width: 20px;
     height: 20px;
 }
@@ -106,8 +106,10 @@ body {
     border: 1px solid #c5c5c5;
     background: transparent;
     outline: none;
-
+    width: 150px;
+    box-sizing: border-box;
 }
+
 
 #changeThemeBtn {
     height: 21px;
@@ -117,6 +119,7 @@ body {
     color: #bcbcbc;
     padding: 7px 10px;
     border: 1px solid #c5c5c5;
-    background: transparent;
     outline: none;
+    width: 150px;
+    margin-top: 10px;
 }

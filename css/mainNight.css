@@ -120,6 +120,8 @@ body {
     border: 1px solid white;
     background: transparent;
     outline: none;
+    width: 150px;
+    box-sizing: border-box;
 }
 
 #changeThemeBtn {
@@ -129,6 +131,8 @@ body {
     color: white;
     padding: 7px 10px;
     border: 1px solid white;
-    background: transparent;
+    background: #888888;
     outline: none;
+    width: 150px;
+    margin-top: 10px;
 }
