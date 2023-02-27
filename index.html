@@ -1,37 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Shult battle</title>
-    <script src="js/shult.js"></script>
-    <script src="js/shultSize.js"></script>
-    <script src="js/animation.js"></script>
+<meta charset="UTF-8">
+<title>Shult battle</title>
+<script src="js/shult.js"></script>
+<script src="js/shultSize.js"></script>
+<script src="js/animation.js"></script>
 
-    <link rel="stylesheet" href="css/main.css" id="mainStyle">
-    <link rel="stylesheet" href="css/alwaysUsed.css">
-    <link rel="stylesheet" href="css/rating.css" id="ratingStyle">
-    <link rel="stylesheet" href="css/shult.css" id="shultStyle">
-    <link rel="stylesheet" href="css/progress.css">
-    <link rel="stylesheet" href="css/notify.css">
+<link rel="stylesheet" href="css/main.css" id="mainStyle">
+<link rel="stylesheet" href="css/alwaysUsed.css">
+<link rel="stylesheet" href="css/rating.css" id="ratingStyle">
+<link rel="stylesheet" href="css/shult.css" id="shultStyle">
+<link rel="stylesheet" href="css/progress.css">
+<link rel="stylesheet" href="css/notify.css">
 
-    <link rel="icon" type="image/ico" href="/favicon.ico">
+<link rel="icon" type="image/ico" href="/favicon.ico">
 </head>
 <body onload="onLoad()">
 <div id="container">
-    <div id="header">
+    <div id="container__header">
         <h2>Шульт-баттл</h2>
         <div>
-            <img id="offOnVolumeBtn" onclick="changeSoundBtn()" src="img/volume-on.svg" alt="">
-            <img onclick="changeTheme()" id="changeThemeBtn" src="img/crescent.svg" alt="">
+            <img id="container__offOnVolumeBtn" onclick="changeSoundBtn()" src="img/volume-on.svg" alt="">
+            <img onclick="changeTheme()" id="container__changeThemeBtn" src="img/crescent.svg" alt="">
         </div>
     </div>
-    <div id="body">
-        <div id="left">
-            <div id="rating"></div>
+    <div id="container__body">
+        <div id="container__left">
+            <div id="container__rating"></div>
         </div>
-        <div id="center">
-            <div id="controls">
-                <input onkeyup="saveName()" id="name" type="text" maxlength="15" placeholder="ваше имя">
+        <div id="container__center">
+            <div id="container__controls">
+                <input onkeyup="saveName()" id="container__name" type="text" maxlength="15" placeholder="ваше имя">
                 <div id="timer">0.0</div>
                 <img id="startStopBtn" src="img/play.svg" onclick="startStop()" alt="стоп/пуск"/>
             </div>

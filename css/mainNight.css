@@ -3,8 +3,11 @@ body {
     font-family: sans-serif, Arial, Verdana;
 }
 
-#header {
+#container__header {
     color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #controls input {
@@ -17,13 +20,7 @@ body {
     align-items: center;
 }
 
-#header {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#body {
+#container__body {
     display: flex;
     flex-direction: row;
 }
@@ -42,11 +39,11 @@ body {
     padding-right: 20px;
 }
 
-#left {
+#container__left {
     width: 300px;
 }
 
-#center {
+#container__center {
     width: calc(5 * 75px + 1px);
 }
 
@@ -57,7 +54,7 @@ body {
     align-items: center;
 }
 
-#controls {
+#container__controls {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -65,7 +62,7 @@ body {
     padding: 10px 0 0 0;
 }
 
-#name {
+#container__name {
     width: 200px;
     height: 40px;
     font-size: 20px;
@@ -105,7 +102,7 @@ body {
     color: red;
 }
 
-#offOnVolumeBtn{
+#container__offOnVolumeBtn{
     width: 20px;
     height: 20px;
 }
@@ -124,7 +121,7 @@ body {
     box-sizing: border-box;
 }
 
-#changeThemeBtn {
+#container__changeThemeBtn {
     height: 21px;
 }
 #displayHints {

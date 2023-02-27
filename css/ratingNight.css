@@ -1,5 +1,4 @@
-.rating-header {
-}
+
 
 .rating-title {
     color: white;
@@ -19,26 +18,26 @@
     margin-bottom: 10px;
 }
 
-#rating table {
+#container__rating table {
     border-collapse: collapse;
 }
 
-#rating table tr:first-child {
+#container__rating table tr:first-child {
     background-color: #343434;
     color: white;
 }
 
-#rating table tr {
+#container__rating table tr {
     background-color: transparent;
     color: white;
 }
 
-#rating table th {
+#container__rating table th {
     text-align: left;
     font-weight: 400;
 }
 
-#rating table tr:nth-child(2) td {
+#container__rating table tr:nth-child(2) td {
     color: #5ab175;
     font-weight: bold;
     padding-top: 10px;

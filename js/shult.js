@@ -97,7 +97,7 @@ function sortRating () {
  * Обновление рейтинга игрока в памяти
  */
 function updateRating () {
-    const name = getEl('name').value.trim();
+    const name = getEl('container__name').value.trim();
     const time = getTime();
 
     // Обновление рейтинга для плеера (в памяти)
@@ -130,7 +130,7 @@ function getRating () {
 }
 
 function saveName () {
-    const lastName = getEl('name').value.trim()
+    const lastName = getEl('container__name').value.trim()
     if (lastName) {
         localStorage.setItem('lastName', JSON.stringify(lastName));
     }
@@ -139,11 +139,11 @@ function saveName () {
 function getName () {
     const value = localStorage.getItem('lastName');
     if (!value) {
-        getEl('name').value = '';
+        getEl('container__name').value = '';
     } else {
-        getEl('name').value = JSON.parse(value);
+        getEl('container__name').value = JSON.parse(value);
     }
-    return getEl('name').value;
+    return getEl('container__name').value;
 }
 
 function clearRating () {
@@ -187,7 +187,7 @@ function drawRating () {
     </tr>`
     }
     html += `</table>`;
-    getEl('rating').innerHTML = html;
+    getEl('container__rating').innerHTML = html;
 }
 
 /**
@@ -265,7 +265,7 @@ function stop () {
     const percent = drawProgress();
     isStarted = false;
     getEl('startStopBtn').src = 'img/play.svg';
-    getEl('name').disabled = false;
+    getEl('container__name').disabled = false;
     drawTime();
     if (percent > 99.99) {
         updateRating(); // Обновляем рейтинг игрока в памяти
@@ -283,16 +283,8 @@ function stop () {
     startTS = 0;
 }
 
-function blinkName () {
-    const nameStyle = getStyle('name');
-    nameStyle.backgroundColor = '#ffc0c0'
-    setTimeout(() => {
-        nameStyle.backgroundColor = 'transparent';
-    }, 200)
-}
-
 function checkName () {
-    const nameEl = getEl('name');
+    const nameEl = getEl('container__name');
     const name = nameEl.value.trim();
     if (!name) {
         notify("Введите имя")
@@ -300,6 +292,14 @@ function checkName () {
         return false;
     }
     return true;
+}
+
+function blinkName () {
+    const nameStyle = getStyle('container__name');
+    nameStyle.backgroundColor = '#ffc0c0'
+    setTimeout(() => {
+        nameStyle.backgroundColor = 'transparent';
+    }, 200)
 }
 
 
@@ -310,7 +310,7 @@ function start () {
     isStarted = true;
     startTS = +(new Date());
     getEl('startStopBtn').src = 'img/stop.svg';
-    getEl('name').disabled = true;
+    getEl('container__name').disabled = true;
     drawShult();
     drawProgress();
 }
@@ -375,19 +375,19 @@ function cellClick (tdEl) {
 
 function changeSoundBtn () {
     if (isPlaying && !theme) {
-        getEl('offOnVolumeBtn').src = 'img/volume-offNight.svg';
+        getEl('container__offOnVolumeBtn').src = 'img/volume-offNight.svg';
         return isPlaying = false
     }
     if (!isPlaying && !theme) {
-        getEl('offOnVolumeBtn').src = 'img/volume-onNight.svg';
+        getEl('container__offOnVolumeBtn').src = 'img/volume-onNight.svg';
         return isPlaying = true
     }
     if (isPlaying && theme) {
-        getEl('offOnVolumeBtn').src = 'img/volume-off.svg';
+        getEl('container__offOnVolumeBtn').src = 'img/volume-off.svg';
         return isPlaying = false
     }
     if (!isPlaying && theme) {
-        getEl('offOnVolumeBtn').src = 'img/volume-on.svg'
+        getEl('container__offOnVolumeBtn').src = 'img/volume-on.svg'
         return isPlaying = true
     }
 }
@@ -419,20 +419,20 @@ function nightTheme () {
     getEl('mainStyle').href = 'css/mainNight.css'
     getEl('ratingStyle').href = 'css/ratingNight.css'
     getEl('shultStyle').href = 'css/shultNight.css'
-    getEl('offOnVolumeBtn').src = 'img/volume-onNight.svg'
+    getEl('container__offOnVolumeBtn').src = 'img/volume-onNight.svg'
     getEl('trash').src = 'img/trashNight.svg'
     theme = false;
-    getEl('changeThemeBtn').src = 'img/sun.svg'
+    getEl('container__changeThemeBtn').src = 'img/sun.svg'
 }
 
 function dayTheme () {
     getEl('mainStyle').href = 'css/main.css'
     getEl('ratingStyle').href = 'css/rating.css'
     getEl('shultStyle').href = 'css/shult.css'
-    getEl('offOnVolumeBtn').src = 'img/volume-on.svg'
+    getEl('container__offOnVolumeBtn').src = 'img/volume-on.svg'
     getEl('trash').src = 'img/trash.svg'
     theme = true;
-    getEl('changeThemeBtn').src = 'img/crescent.svg'
+    getEl('container__changeThemeBtn').src = 'img/crescent.svg'
 }
 
 let isDisplaying = false
@@ -461,7 +461,7 @@ function cheat () {
         sec = randomSec()
     }
 
-    if (!getEl('name').value) {
+    if (!getEl('container__name').value) {
         notify('Введите имя')
         return false
     }
@@ -519,17 +519,14 @@ function errorSound () {
     }
 }
 
-function notify(html, delay = 3000) {
+function notify (html, delay = 3000) {
     const el = getEl('notify');
     el.innerHTML = html;
     el.style.display = 'block';
-    setTimeout(()=>{
+    setTimeout(() => {
         el.style.display = 'none';
     }, delay)
 }
-
-
-
 
 
 function onLoad () {

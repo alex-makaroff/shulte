@@ -8,6 +8,6 @@ function shultSize () {
         td.style.height = shultCellSize + 'px'
     }
 
-    getStyle('center').width = Math.max(ADGE_LEN, 5) * shultCellSize + 'px'
+    getStyle('container__center').width = Math.max(ADGE_LEN, 5) * shultCellSize + 'px'
 }
 
