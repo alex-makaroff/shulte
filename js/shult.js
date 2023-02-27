@@ -7,14 +7,7 @@ let shultArr = [];
 let timer = 0;
 let startTS = 0;
 let isStarted = false;
-let rating = [
-    ["Саша", 6.0],
-    ["Вениамин", 10.0],
-    ["Света", 85.5],
-    ["Юра", 45.5],
-    ["Екатерина", 31.5],
-    ["Петр", 36.5],
-];
+let rating = [];
 let isPlaying = true;
 let isCheating = false
 
